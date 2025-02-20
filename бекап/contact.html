@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свяжитесь с нами</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="Фото/logo.png" alt="Логотип">
+        </div>
+        <nav class="nav">
+            <a href="catalog.html">Товары</a>
+            <a href="каталог.pdf">WEB-каталог</a>
+            <a href="index.html">О компании</a>
+            <a href="contact.html">Контакты</a>
+        </nav>
+        <div class="buttons">
+            <button id="loginBtn">Войти</button>
+            <a  id="registerBtn">Регистрация</a>
+        </div>
+    </div>
+
+    <!-- Модальное окно для входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form>
+                <div>
+                    <label for="loginEmail">Почта</label>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Value" required>
+                </div>
+                <button type="submit">Войти</button>
+            </form>
+            <div class="forgot-password">Забыли пароль?</div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form>
+                <div>
+                    <label for="registerEmail">Почта</label>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="registerPassword">Пароль</label>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Value" required>
+                </div>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="header2">
+        <div class="container">
+            <h1>Свяжитесь с нами</h1>
+            <form>
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" placeholder="Value">
+                </div>
+                <div class="form-group">
+                    <label for="surname">Фамилия</label>
+                    <input type="text" id="surname" name="surname" placeholder="Value">
+                </div>
+                <div class="form-group">
+                    <label for="mail">Почта</label>
+                    <input type="email" id="mail" name="mail" placeholder="Value">
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <input type="text" id="message" name="message" placeholder="Value">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Отправить</button>
+                </div>
+            </form>
+        </div>
+        <div class="фото">
+            <img src="Фото/фон.jpeg" alt="Логотип">
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="social-icons">
+            <img src="Фото/insta.png" alt="Instagram">
+            <img src="Фото/Twitter.png" alt="Twitter">
+            <img src="Фото/vk.png" alt="ВК">
+        </div>
+        <div class="footer-links">
+            <div class="footer-column">
+                <h3>Каталог</h3>
+                <ul>
+                    <li><a href="#">Межкомнатные</a></li>
+                    <li><a href="#">Входные</a></li>
+                    <li><a href="#">Раздвижные</a></li>
+                    <li><a href="#">Фурнитура</a></li>
+                    <li><a href="#">Установка</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="#">Телефон</a></li>
+                    <li><a href="#">WhatsApp</a></li>
+                    <li><a href="#">Почта</a></li>
+                    <li><a href="#">Адрес</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Информация</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Как купить</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Оплата</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                    <li><a href="#">Гарантия</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шапка сайта</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="Фото/logo.png" alt="Логотип">
+        </div>
+        <nav class="nav">
+            <a href="catalog.html">Товары</a>
+            <a href="каталог.pdf">WEB-каталог</a>
+            <a href="Ocompani.html">О компании</a>
+            <a href="contact.html">Контакты</a>
+            <a href="test.html">ПРОВЕРКА</a>
+            <a href="profil.html">ПРОФИЛЬ</a>
+        </nav>
+        <div class="buttons" id="authButtons">
+            <button id="loginBtn">Войти</button>
+            <a id="registerBtn">Регистрация</a>
+        </div>
+    </div>
+
+    <!-- Модальное окно для входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="loginForm">
+                <div>
+                    <label for="loginEmail">Почта</label>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Value" required>
+                </div>
+                <button type="submit">Войти</button>
+            </form>
+            <div class="forgot-password">Забыли пароль?</div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="registerForm" method="post" action="register.php">
+                <div>
+                    <label for="registerName">Имя</label>
+                    <input type="text" id="registerName" name="registerName" placeholder="Имя" required>
+                </div>
+                <div>
+                    <label for="registerEmail">Почта</label>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="registerPassword">Пароль</label>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Value" required>
+                </div>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="header2">
+        <div class="header-content">
+            <h1>Поли-Арт</h1>
+            <p>Магазин дверей</p>
+            <div class="buttons">
+                <button>Каталог</button>
+                <a href="#">Товары</a>
+            </div>
+        </div>
+        <div class="фото">
+            <img src="Фото/фон.jpeg" alt="Логотип">
+        </div>
+    </div>
+    <div class="container">
+        <h2>Достоинства</h2>
+        <div class="features">
+            <div class="feature">Широкий ассортимент</div>
+            <div class="feature">Гарантия качества</div>
+            <div class="feature">Качество материалов</div>
+            <div class="feature">Оперативность</div>
+            <div class="feature">Индивидуальный подход</div>
+            <div class="feature">Профессиональная установка</div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="social-icons">
+            <img src="Фото/insta.png" alt="Instagram">
+            <img src="Фото/Twitter.png" alt="Twitter">
+            <img src="Фото/vk.png" alt="ВК">
+        </div>
+        <div class="footer-links">
+            <div class="footer-column">
+                <h3>Каталог</h3>
+                <ul>
+                    <li><a href="#">Межкомнатные</a></li>
+                    <li><a href="#">Входные</a></li>
+                    <li><a href="#">Раздвижные</a></li>
+                    <li><a href="#">Фурнитура</a></li>
+                    <li><a href="#">Установка</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="#">Телефон</a></li>
+                    <li><a href="#">WhatsApp</a></li>
+                    <li><a href="#">Почта</a></li>
+                    <li><a href="#">Адрес</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Информация</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Как купить</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Оплата</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                    <li><a href="#">Гарантия</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.getElementById('authButtons');
+
+            // Проверка наличия регистрации
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+            function updateAuthButtons() {
+                if (isLoggedIn) {
+                    // Если пользователь зарегистрирован, изменяем кнопки на значок пользователя и добавляем кнопку выхода
+                    authButtons.innerHTML = '<img src="Фото/пользователь.jpg" id="userIcon"> <button id="logoutBtn">Выйти</button>';
+                } else {
+                    // Если пользователь не зарегистрирован, отображаем кнопки "Войти" и "Регистрация"
+                    authButtons.innerHTML = '<button id="loginBtn">Войти</button> <a id="registerBtn">Регистрация</a>';
+                }
+                // Переназначение обработчиков событий для кнопок "Войти" и "Регистрация"
+                document.getElementById('loginBtn')?.addEventListener('click', function() {
+                    document.getElementById('loginModal').style.display = 'block';
+                });
+                document.getElementById('registerBtn')?.addEventListener('click', function() {
+                    document.getElementById('registerModal').style.display = 'block';
+                });
+                document.getElementById('logoutBtn')?.addEventListener('click', function() {
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('userName');
+                    localStorage.removeItem('userEmail');
+                    updateAuthButtons();
+                    // Перезагрузка страницы
+                    window.location.reload();
+                });
+            }
+
+            updateAuthButtons();
+
+            // Обработка формы входа
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Логика аутентификации
+                const email = document.getElementById('loginEmail').value;
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                updateAuthButtons();
+                document.getElementById('loginModal').style.display = 'none';
+                // Перезагрузка страницы
+                window.location.reload();
+            });
+
+            // Обработка формы регистрации
+            document.getElementById('registerForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Логика регистрации
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', name);
+                localStorage.setItem('userEmail', email);
+                updateAuthButtons();
+                document.getElementById('registerModal').style.display = 'none';
+                // Перезагрузка страницы
+                window.location.reload();
+            });
+
+            // Закрытие модальных окон
+            document.querySelectorAll('.close').forEach(function(closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

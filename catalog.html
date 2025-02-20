@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свяжитесь с нами</title>
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="Фото/logo.png" alt="Логотип">
+        </div>
+        <nav class="nav">
+            <a href="catalog.html">Товары</a>
+            <a href="каталог.pdf">WEB-каталог</a>
+            <a href="Ocompani.html">О компании</a>
+            <a href="contact.html">Контакты</a>
+        </nav>
+        <div class="buttons" id="authButtons">
+            <button id="loginBtn">Войти</button>
+            <a id="registerBtn">Регистрация</a>
+        </div>
+    </div>
+
+    <!-- Модальное окно для входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="loginForm">
+                <div>
+                    <label for="loginEmail">Почта</label>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Value" required>
+                </div>
+                <button type="submit">Войти</button>
+            </form>
+            <div class="forgot-password">Забыли пароль?</div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="registerForm">
+                <div>
+                    <label for="registerEmail">Почта</label>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="registerPassword">Пароль</label>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Value" required>
+                </div>
+                <div>
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Value" required>
+                </div>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="filters">
+            <h3>Фильтры</h3>
+            <div class="price-range">
+                <label for="price">Цена</label>
+                <input type="range" id="price" name="price" min="0" max="100" value="100">
+                <span>$0-100</span>
+            </div>
+            <div class="color-options">
+                <h4>Цвет</h4>
+                <label><input type="checkbox" name="color" value="seryi"> Серый</label><br>
+                <label><input type="checkbox" name="color" value="chernyi"> Черный</label><br>
+                <label><input type="checkbox" name="color" value="belyi"> Белый</label>
+            </div>
+            <div class="type-options">
+                <h4>Тип</h4>
+                <label><input type="checkbox" name="type" value="mezhkomnatnaya"> Межкомнатная</label><br>
+                <label><input type="checkbox" name="type" value="vhodnaya"> Входная</label><br>
+                <label><input type="checkbox" name="type" value="razdvizhnaya"> Раздвижная</label>
+            </div>
+        </div>
+        <div class="products-container">
+            <div class="sorting">
+                <input type="text" placeholder="Поиск">
+                <div class="buttons">
+                    <button>Новинки</button>
+                    <button>Цена растет</button>
+                    <button>Цена снижается</button>
+                    <button>Рейтинг</button>
+                </div>
+            </div>
+            <div class="products">
+                <div id="door1" class="product">
+                    <img src="Фото/дверь.webp" alt="Дверь">
+                    <div class="price">Кремона <br>17 000 руб.</div>
+                </div>
+                <div id="door2" class="product">
+                    <img src="Фото/дверь2.webp" alt="Дверь">
+                    <div class="price">Alta <br>18 438 руб.</div>
+                </div>
+                <div id="door3" class="product">
+                    <img src="Фото/дверь3.webp" alt="Дверь">
+                    <div class="price">Arvika <br>24 055 руб.</div>
+                </div>
+                <div id="door4" class="product">
+                    <img src="Фото/дверь4.webp" alt="Дверь">
+                    <div class="price">Роялти<br>21 283 руб.</div>
+                </div>
+                <div id="door5" class="product">
+                    <img src="Фото/дверь5.webp" alt="Дверь">
+                    <div class="price">Белла <br>24 889 руб.</div>
+                </div>
+                <div id="door6" class="product">
+                    <img src="Фото/дверь6.webp" alt="Дверь">
+                    <div class="price">Стелла <br>17 220 руб.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="social-icons">
+            <img src="Фото/insta.png" alt="Instagram">
+            <img src="Фото/Twitter.png" alt="Twitter">
+            <img src="Фото/vk.png" alt="ВК">
+        </div>
+        <div class="footer-links">
+            <div class="footer-column">
+                <h3>Каталог</h3>
+                <ul>
+                    <li><a href="#">Межкомнатные</a></li>
+                    <li><a href="#">Входные</a></li>
+                    <li><a href="#">Раздвижные</a></li>
+                    <li><a href="#">Фурнитура</a></li>
+                    <li><a href="#">Установка</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li><a href="#">Телефон</a></li>
+                    <li><a href="#">WhatsApp</a></li>
+                    <li><a href="#">Почта</a></li>
+                    <li><a href="#">Адрес</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Информация</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Как купить</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Оплата</a></li>
+                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                    <li><a href="#">Гарантия</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authButtons = document.getElementById('authButtons');
+
+            // Проверка наличия регистрации
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+            function updateAuthButtons() {
+                if (isLoggedIn) {
+                    // Если пользователь зарегистрирован, изменяем кнопки на значок пользователя и добавляем кнопку выхода
+                    authButtons.innerHTML = '<img src="Фото/пользователь.jpg" id="userIcon"> <button id="logoutBtn">Выйти</button>';
+                } else {
+                    // Если пользователь не зарегистрирован, отображаем кнопки "Войти" и "Регистрация"
+                    authButtons.innerHTML = '<button id="loginBtn">Войти</button> <a id="registerBtn">Регистрация</a>';
+                }
+                // Переназначение обработчиков событий для кнопок "Войти" и "Регистрация"
+                document.getElementById('loginBtn')?.addEventListener('click', function() {
+                    document.getElementById('loginModal').style.display = 'block';
+                });
+                document.getElementById('registerBtn')?.addEventListener('click', function() {
+                    document.getElementById('registerModal').style.display = 'block';
+                });
+                document.getElementById('logoutBtn')?.addEventListener('click', function() {
+                    localStorage.removeItem('isLoggedIn');
+                    updateAuthButtons();
+                    // Перезагрузка страницы
+                    window.location.reload();
+                });
+            }
+
+            updateAuthButtons();
+
+            // Обработка формы входа
+            document.getElementById('loginForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Логика аутентификации
+                localStorage.setItem('isLoggedIn', 'true');
+                updateAuthButtons();
+                document.getElementById('loginModal').style.display = 'none';
+                    // Перезагрузка страницы
+                    window.location.reload();
+            });
+
+            // Обработка формы регистрации
+            document.getElementById('registerForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Логика регистрации
+                localStorage.setItem('isLoggedIn', 'true');
+                updateAuthButtons();
+                document.getElementById('registerModal').style.display = 'none';
+                    // Перезагрузка страницы
+                    window.location.reload();
+            });
+
+            // Закрытие модальных окон
+            document.querySelectorAll('.close').forEach(function(closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                
+                });
+            });
+        });
+
+document.getElementById('door1').addEventListener('click', function() {
+        window.open('tovar.html');
+    });
+
+    document.getElementById('door2').addEventListener('click', function() {
+        window.open('tovar2.html');
+    });
+
+    document.getElementById('door3').addEventListener('click', function() {
+        window.open('tovar3.html');
+    });
+
+    document.getElementById('door4').addEventListener('click', function() {
+        window.open('tovar4.html');
+    });
+
+    document.getElementById('door5').addEventListener('click', function() {
+        window.open('tovar5.html');
+    });
+
+    document.getElementById('door6').addEventListener('click', function() {
+        window.open('tovar6.html');
+    });
+ 
+    </script>
+</body>
+</html>

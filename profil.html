@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .profile-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        .profile-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .profile-info {
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .profile-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .profile-buttons button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #ddd;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+        .profile-buttons button:hover {
+            background-color: #ccc;
+        }
+        .modal {
+            left: -250px;
+            margin-top: -410px;
+            display: none;
+            position: fixed;
+            z-index: 2;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            width: 120%;
+            height: 120%;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            border: 1px solid #888;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .modal button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="Фото/пользователь.jpg" alt="userIcon" id="userIcon">
+            <h2 id="userName">Имя Пользователя</h2>
+        </div>
+        <div class="profile-info">
+            <p id="userEmail">Email: user@example.com</p>
+            <p>Телефон: +123 456 789</p>
+            <p>Адрес: г. Москва, ул. Примерная, д. 1</p>
+        </div>
+        <div class="profile-buttons">
+            <button onclick="openModal('editProfile')">Редактировать профиль</button>
+            <button onclick="openModal('changePassword')">Сменить пароль</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования профиля -->
+    <div id="editProfile" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('editProfile')">&times;</span>
+            <h2>Редактировать профиль</h2>
+            <form id="editProfileForm">
+                <div>
+                    <label for="editName">Имя</label>
+                    <input type="text" id="editName" name="editName" placeholder="Имя" required>
+                </div>
+                <div>
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="editEmail" placeholder="Email" required>
+                </div>
+                <div>
+                    <label for="editPhone">Телефон</label>
+                    <input type="text" id="editPhone" name="editPhone" placeholder="Телефон" required>
+                </div>
+                <div>
+                    <label for="editAddress">Адрес</label>
+                    <input type="text" id="editAddress" name="editAddress" placeholder="Адрес" required>
+                </div>
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для смены пароля -->
+    <div id="changePassword" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('changePassword')">&times;</span>
+            <h2>Сменить пароль</h2>
+            <form id="changePasswordForm">
+                <div>
+                    <label for="currentPassword">Текущий пароль</label>
+                    <input type="password" id="currentPassword" name="currentPassword" placeholder="Текущий пароль" required>
+                </div>
+                <div>
+                    <label for="newPassword">Новый пароль</label>
+                    <input type="password" id="newPassword" name="newPassword" placeholder="Новый пароль" required>
+                </div>
+                <div>
+                    <label for="confirmNewPassword">Подтвердите новый пароль</label>
+                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Подтвердите новый пароль" required>
+                </div>
+                <button type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve user data from localStorage
+            const userName = localStorage.getItem('userName') || 'Имя Пользователя';
+            const userEmail = localStorage.getItem('userEmail') || 'user@example.com';
+
+            // Update the profile information
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userEmail').textContent = 'Email: ' + userEmail;
+        });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Update profile information on the page
+            const newName = document.getElementById('editName').value;
+            const newEmail = document.getElementById('editEmail').value;
+            document.getElementById('userName').textContent = newName;
+            document.getElementById('userEmail').textContent = 'Email: ' + newEmail;
+            // Save updated information to localStorage
+            localStorage.setItem('userName', newName);
+            localStorage.setItem('userEmail', newEmail);
+            alert('Профиль успешно обновлен!');
+            closeModal('editProfile');
+        });
+
+        document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Logic for changing password
+            alert('Пароль успешно изменен!');
+            closeModal('changePassword');
+        });
+    </script>
+</body>
+</html>
