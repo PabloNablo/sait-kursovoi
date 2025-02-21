@@ -1,25 +1,30 @@
 <?php
-include 'db.php';
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "mydb";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['registerEmail'];
-    $password = $_POST['registerPassword'];
-    $confirmPassword = $_POST['confirmPassword'];
+    $password = password_hash($_POST['registerPassword'], PASSWORD_DEFAULT);
 
-    if ($password == $confirmPassword) {
-        // Хеширование пароля
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $conn->prepare("INSERT INTO users (registerEmail, registerPassword) VALUES (?, ?)");
+    $stmt->bind_param("ss", $email, $password);
 
-        // Вставка данных в базу данных
-        $sql = "INSERT INTO users (email, password) VALUES ('$email', '$hashed_password')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "Регистрация успешна!";
-        } else {
-            echo "Ошибка: " . $sql . "<br>" . $conn->error;
-        }
+    if ($stmt->execute()) {
+        echo "Регистрация успешна";
     } else {
-        echo "Пароли не совпадают.";
+        echo "Ошибка: " . $stmt->error;
     }
+
+    $stmt->close();
 }
+
+$conn->close();
 ?>

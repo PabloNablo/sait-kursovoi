@@ -75,8 +75,8 @@
             <h1>Поли-Арт</h1>
             <p>Магазин дверей</p>
             <div class="buttons">
-                <button>Каталог</button>
-                <a href="#">Товары</a>
+                <button onclick="openPDF()" href="каталог.pdf">Каталог</button>
+                <a href="catalog.html">Товары</a>
             </div>
         </div>
         <div class="фото">
@@ -135,6 +135,9 @@
         </div>
     </footer>
     <script>
+        function openPDF() {
+            window.open('каталог.pdf', '_blank');
+        }
         document.addEventListener('DOMContentLoaded', function() {
             const authButtons = document.getElementById('authButtons');
 
