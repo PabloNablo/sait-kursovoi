@@ -1,30 +1,33 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "mydb";
+
 $conn = new mysqli($servername, $username, $password, $dbname);
+
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['loginEmail'];
+    $password = $_POST['loginPassword'];
 
-    $sql = "SELECT * FROM users WHERE email='$email'";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($id, $hashedPassword);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            echo "Вход успешен";
-        } else {
-            echo "Неверный пароль";
-        }
+    if ($stmt->fetch() && password_verify($password, $hashedPassword)) {
+        echo json_encode(['success' => true, 'email' => $email]);
     } else {
-        echo "Пользователь не найден";
+        echo json_encode(['success' => false, 'message' => 'Неверный email или пароль']);
     }
+
+    $stmt->close();
 }
 
 $conn->close();

@@ -129,56 +129,46 @@
         </div>
     </div>
 
-    <!-- Модальное окно для редактирования профиля -->
-    <div id="editProfile" class="modal">
+     <!-- Модальное окно для входа -->
+     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('editProfile')">&times;</span>
-            <h2>Редактировать профиль</h2>
-            <form id="editProfileForm">
+            <span class="close">&times;</span>
+            <form id="loginForm">
                 <div>
-                    <label for="editName">Имя</label>
-                    <input type="text" id="editName" name="editName" placeholder="Имя" required>
+                    <label for="loginEmail">Почта</label>
+                    <input type="email" id="loginEmail" name="loginEmail" placeholder="Value" required>
                 </div>
                 <div>
-                    <label for="editEmail">Email</label>
-                    <input type="email" id="editEmail" name="editEmail" placeholder="Email" required>
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Value" required>
                 </div>
-                <div>
-                    <label for="editPhone">Телефон</label>
-                    <input type="text" id="editPhone" name="editPhone" placeholder="Телефон" required>
-                </div>
-                <div>
-                    <label for="editAddress">Адрес</label>
-                    <input type="text" id="editAddress" name="editAddress" placeholder="Адрес" required>
-                </div>
-                <button type="submit">Сохранить</button>
+                <button type="submit">Войти</button>
             </form>
+            <div class="forgot-password">Забыли пароль?</div>
         </div>
     </div>
 
-    <!-- Модальное окно для смены пароля -->
-    <div id="changePassword" class="modal">
+    <!-- Модальное окно для регистрации -->
+    <div id="registerModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('changePassword')">&times;</span>
-            <h2>Сменить пароль</h2>
-            <form id="changePasswordForm">
+            <span class="close">&times;</span>
+            <form id="registerForm" method="post">
                 <div>
-                    <label for="currentPassword">Текущий пароль</label>
-                    <input type="password" id="currentPassword" name="currentPassword" placeholder="Текущий пароль" required>
+                    <label for="registerEmail">Почта</label>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Введите email" required>
                 </div>
                 <div>
-                    <label for="newPassword">Новый пароль</label>
-                    <input type="password" id="newPassword" name="newPassword" placeholder="Новый пароль" required>
+                    <label for="registerPassword">Пароль</label>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Введите пароль" required>
                 </div>
                 <div>
-                    <label for="confirmNewPassword">Подтвердите новый пароль</label>
-                    <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Подтвердите новый пароль" required>
+                    <label for="confirmPassword">Подтвердите пароль</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Подтвердите пароль" required>
                 </div>
-                <button type="submit">Сохранить</button>
+                <button type="submit">Зарегистрироваться</button>
             </form>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Retrieve user data from localStorage
@@ -227,6 +217,110 @@
             alert('Пароль успешно изменен!');
             closeModal('changePassword');
         });
+        document.addEventListener('DOMContentLoaded', function () {
+        const authButtons = document.getElementById('authButtons');
+
+        // Проверка наличия регистрации
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+        function updateAuthButtons() {
+            if (isLoggedIn) {
+                // Если пользователь зарегистрирован, изменяем кнопки на значок пользователя и добавляем кнопку выхода
+                authButtons.innerHTML = '<a style="all: unset;" href="profil.html"><img src="Фото/пользователь.jpg" id="userIcon"></a> <button id="logoutBtn">Выйти</button>';
+            } else {
+                // Если пользователь не зарегистрирован, отображаем кнопки "Войти" и "Регистрация"
+                authButtons.innerHTML = '<button id="loginBtn">Войти</button> <a id="registerBtn">Регистрация</a>';
+            }
+
+            // Переназначение обработчиков событий для кнопок "Войти" и "Регистрация"
+            document.getElementById('loginBtn')?.addEventListener('click', function () {
+                document.getElementById('loginModal').style.display = 'block';
+            });
+
+            document.getElementById('registerBtn')?.addEventListener('click', function () {
+                document.getElementById('registerModal').style.display = 'block';
+            });
+
+            document.getElementById('logoutBtn')?.addEventListener('click', function () {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                updateAuthButtons();
+                window.location.reload();
+            });
+        }
+
+        updateAuthButtons();
+
+        // Обработка формы входа
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userEmail', data.email);
+                        updateAuthButtons();
+                        document.getElementById('loginModal').style.display = 'none';
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                });
+        });
+
+        // Обработка формы регистрации
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            console.log('Форма регистрации отправлена'); // Проверка, срабатывает ли обработчик
+
+            const formData = new FormData(this);
+
+            fetch('register.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Ответ от сервера:', data); // Проверка ответа от сервера
+                    if (data.success) {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userEmail', data.email);
+                        updateAuthButtons();
+                        document.getElementById('registerModal').style.display = 'none';
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error); // Логирование ошибок
+                });
+        });
+
+        // Закрытие модальных окон
+        document.querySelectorAll('.close').forEach(function (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+                this.closest('.modal').style.display = 'none';
+            });
+        });
+
+        // Закрытие модальных окон при клике вне их области
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+    });
     </script>
 </body>
 </html>

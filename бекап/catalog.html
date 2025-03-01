@@ -42,21 +42,11 @@
             cursor: pointer;
         }
 
-        /* Значок корзины в левой части страницы */
+        /* Значок корзины в header */
         #cartIcon {
-            position: fixed;
-            left: 20px; /* Отступ слева */
-            top: 20px; /* Отступ сверху */
+            position: relative;
             cursor: pointer;
-            z-index: 1000; /* Поверх всех элементов */
-            background-color: #fff; /* Фон для видимости */
-            border: 1px solid #ccc; /* Граница */
-            border-radius: 50%; /* Круглая форма */
-            padding: 10px; /* Внутренний отступ */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-left: 20px; /* Отступ от кнопок авторизации */
         }
 
         #cartIcon img {
@@ -138,48 +128,9 @@
                 width: calc(100% - 40px);
             }
         }
-
-        /* Стили для header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #f8f8f8;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .header .buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header .buttons button,
-        .header .buttons a {
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 14px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        .header .buttons button:hover,
-        .header .buttons a:hover {
-            background-color: #e0e0e0;
-        }
     </style>
 </head>
 <body>
-    <!-- Значок корзины -->
-    <div id="cartIcon">
-        <img src="Фото/cart.png" alt="Корзина">
-        <span id="cartCount">0</span>
-    </div>
-
     <div class="header">
         <div class="logo">
             <a href="index.html">
@@ -195,6 +146,11 @@
         <div class="buttons" id="authButtons">
             <button id="loginBtn">Войти</button>
             <a id="registerBtn">Регистрация</a>
+            <!-- Значок корзины -->
+            <div id="cartIcon">
+                <img src="Фото/cart.png" alt="Корзина">
+                <span id="cartCount">0</span>
+            </div>
         </div>
     </div>
 

@@ -25,8 +25,8 @@
         </div>
     </div>
 
-    <!-- Модальное окно для входа -->
-    <div id="loginModal" class="modal">
+     <!-- Модальное окно для входа -->
+     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form id="loginForm">
@@ -48,18 +48,18 @@
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form id="registerForm">
+            <form id="registerForm" method="post">
                 <div>
                     <label for="registerEmail">Почта</label>
-                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Value" required>
+                    <input type="email" id="registerEmail" name="registerEmail" placeholder="Введите email" required>
                 </div>
                 <div>
                     <label for="registerPassword">Пароль</label>
-                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Value" required>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Введите пароль" required>
                 </div>
                 <div>
                     <label for="confirmPassword">Подтвердите пароль</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Value" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Подтвердите пароль" required>
                 </div>
                 <button type="submit">Зарегистрироваться</button>
             </form>
@@ -194,66 +194,110 @@
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const authButtons = document.getElementById('authButtons');
+        document.addEventListener('DOMContentLoaded', function () {
+        const authButtons = document.getElementById('authButtons');
 
-            // Проверка наличия регистрации
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
+        // Проверка наличия регистрации
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
 
-            function updateAuthButtons() {
-                if (isLoggedIn) {
-                    // Если пользователь зарегистрирован, изменяем кнопки на значок пользователя и добавляем кнопку выхода
-                    authButtons.innerHTML = '<img src="Фото/пользователь.jpg" id="userIcon"> <button id="logoutBtn">Выйти</button>';
-                } else {
-                    // Если пользователь не зарегистрирован, отображаем кнопки "Войти" и "Регистрация"
-                    authButtons.innerHTML = '<button id="loginBtn">Войти</button> <a id="registerBtn">Регистрация</a>';
-                }
-                // Переназначение обработчиков событий для кнопок "Войти" и "Регистрация"
-                document.getElementById('loginBtn')?.addEventListener('click', function() {
-                    document.getElementById('loginModal').style.display = 'block';
-                });
-                document.getElementById('registerBtn')?.addEventListener('click', function() {
-                    document.getElementById('registerModal').style.display = 'block';
-                });
-                document.getElementById('logoutBtn')?.addEventListener('click', function() {
-                    localStorage.removeItem('isLoggedIn');
-                    updateAuthButtons();
-                    // Перезагрузка страницы
-                    window.location.reload();
-                });
+        function updateAuthButtons() {
+            if (isLoggedIn) {
+                // Если пользователь зарегистрирован, изменяем кнопки на значок пользователя и добавляем кнопку выхода
+                authButtons.innerHTML = '<a style="all: unset;" href="profil.html"><img src="Фото/пользователь.jpg" id="userIcon"></a> <button id="logoutBtn">Выйти</button>';
+            } else {
+                // Если пользователь не зарегистрирован, отображаем кнопки "Войти" и "Регистрация"
+                authButtons.innerHTML = '<button id="loginBtn">Войти</button> <a id="registerBtn">Регистрация</a>';
             }
 
-            updateAuthButtons();
-
-            // Обработка формы входа
-            document.getElementById('loginForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // Логика аутентификации
-                localStorage.setItem('isLoggedIn', 'true');
-                updateAuthButtons();
-                document.getElementById('loginModal').style.display = 'none';
-                // Перезагрузка страницы
-                window.location.reload();
+            // Переназначение обработчиков событий для кнопок "Войти" и "Регистрация"
+            document.getElementById('loginBtn')?.addEventListener('click', function () {
+                document.getElementById('loginModal').style.display = 'block';
             });
 
-            // Обработка формы регистрации
-            document.getElementById('registerForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                // Логика регистрации
-                localStorage.setItem('isLoggedIn', 'true');
-                updateAuthButtons();
-                document.getElementById('registerModal').style.display = 'none';
-                // Перезагрузка страницы
-                window.location.reload();
+            document.getElementById('registerBtn')?.addEventListener('click', function () {
+                document.getElementById('registerModal').style.display = 'block';
             });
 
-            // Закрытие модальных окон
-            document.querySelectorAll('.close').forEach(function(closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    this.closest('.modal').style.display = 'none';
+            document.getElementById('logoutBtn')?.addEventListener('click', function () {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                updateAuthButtons();
+                window.location.reload();
+            });
+        }
+
+        updateAuthButtons();
+
+        // Обработка формы входа
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('login.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userEmail', data.email);
+                        updateAuthButtons();
+                        document.getElementById('loginModal').style.display = 'none';
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
                 });
+        });
+
+        // Обработка формы регистрации
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            console.log('Форма регистрации отправлена'); // Проверка, срабатывает ли обработчик
+
+            const formData = new FormData(this);
+
+            fetch('register.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Ответ от сервера:', data); // Проверка ответа от сервера
+                    if (data.success) {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        localStorage.setItem('userEmail', data.email);
+                        updateAuthButtons();
+                        document.getElementById('registerModal').style.display = 'none';
+                        window.location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error); // Логирование ошибок
+                });
+        });
+
+        // Закрытие модальных окон
+        document.querySelectorAll('.close').forEach(function (closeBtn) {
+            closeBtn.addEventListener('click', function () {
+                this.closest('.modal').style.display = 'none';
             });
         });
+
+        // Закрытие модальных окон при клике вне их области
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+    });
     </script>
 </body>
 </html>

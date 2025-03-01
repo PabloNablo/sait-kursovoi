@@ -145,7 +145,7 @@
             function updateAuthButtons() {
                 if (isLoggedIn) {
                     // Если пользователь зарегистрирован, изменяем кнопки на значок пользователя и добавляем кнопку выхода
-                    authButtons.innerHTML = '<img src="Фото/пользователь.jpg" id="userIcon"> <button id="logoutBtn">Выйти</button>';
+                    authButtons.innerHTML = '<a style="all: unset;" href="profil.html"><img src="Фото/пользователь.jpg" id="userIcon"></a> <button id="logoutBtn">Выйти</button>';
                 } else {
                     // Если пользователь не зарегистрирован, отображаем кнопки "Войти" и "Регистрация"
                     authButtons.innerHTML = '<button id="loginBtn">Войти</button> <a id="registerBtn">Регистрация</a>';
